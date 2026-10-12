@@ -5,6 +5,8 @@
 /* ДЗ_5.pdf, вариант 14. Все углы в радианах.
    g = y^(x+1)/(cbrt(|y-2|)+3)
        + (x+y/2)/(2|x+y|) * (x+1)^(-1/sin(z)). */
+double calculate_g(double x, double y, double z);
+
 int main(void)
 {
     double x, y, z;
@@ -19,10 +21,7 @@ int main(void)
         fprintf(stderr, "Значения вне поддерживаемой области определения.\n");
         return 1;
     }
-    const double first = pow(y, x + 1.0) / (cbrt(fabs(y - 2.0)) + 3.0);
-    const double second = (x + y / 2.0) / (2.0 * fabs(x + y))
-                        * pow(x + 1.0, -1.0 / sin(z));
-    const double g = first + second;
+    const double g = calculate_g(x, y, z);
     if (!isfinite(g)) {
         fprintf(stderr, "Результат не является конечным числом.\n");
         return 1;
@@ -30,4 +29,13 @@ int main(void)
     printf("x = %.6f, y = %.6f, z = %.6f\n", x, y, z);
     printf("g = %.6f\n", g);
     return 0;
+}
+
+double calculate_g(double x, double y, double z)
+{
+    const double first = pow(y, x + 1.0) / (cbrt(fabs(y - 2.0)) + 3.0);
+    const double second = (x + y / 2.0) / (2.0 * fabs(x + y))
+                        * pow(x + 1.0, -1.0 / sin(z));
+    const double g = first + second;
+    return g;
 }

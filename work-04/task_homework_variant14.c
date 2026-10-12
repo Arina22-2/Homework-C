@@ -2,6 +2,8 @@
 
 /* Работа 4, ДЗ, вариант 14: Калибровка станка.
    Успех, если каждый из параметров A, B, C кратен трём. */
+int calibration_success(int A, int B, int C);
+
 int main(void)
 {
     int A, B, C;
@@ -10,8 +12,14 @@ int main(void)
         fprintf(stderr, "Ошибка: необходимо ввести три целых числа.\n");
         return 1;
     }
-    const int condition = (A % 3 == 0) && (B % 3 == 0) && (C % 3 == 0);
+    const int condition = calibration_success(A, B, C);
     printf("A = %d, B = %d, C = %d\n", A, B, C);
     printf("Калибровка успешна (1 - да, 0 - нет): %d\n", condition);
     return 0;
+}
+
+int calibration_success(int A, int B, int C)
+{
+    const int result = (A % 3 == 0) && (B % 3 == 0) && (C % 3 == 0);
+    return result;
 }
